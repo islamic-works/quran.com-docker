@@ -1,0 +1,5 @@
+.vscode
+.git 
+.ssh
+*.bck.yml
+*/.ssh

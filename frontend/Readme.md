@@ -10,3 +10,7 @@ Below is a description of each file and folder relevant to the docker, the other
 ### pm2.logrotate.conf
 
 ### supervisord.conf
+
+### git-repository
+
+Git submodule from my fork of original project (git@github.com:islamic-works/quran.com-frontend.git), in this version of work I use a new branch "docker" where I remove all docker references, for use only in this context.
