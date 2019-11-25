@@ -1,0 +1,3 @@
+[submodule "api/git-repository"]
+	path = api/git-repository
+	url = git@github.com:islamic-works/quran.com-api.git
