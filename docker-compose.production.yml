@@ -1,0 +1,11 @@
+version: '3'
+services:
+  api:
+    build:
+      context: frontend
+      args:
+        - env=production
+    image: quran.com-frontend:prod-v1-latest
+    environment:
+      - SECRET_KEY_BASE=abcdefa
+
