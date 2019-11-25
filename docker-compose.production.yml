@@ -1,0 +1,12 @@
+version: '3'
+services:
+  api:
+    build:
+      context: api
+      args:
+        - env=production
+        - bundle_opts=--without development test --deployment --clean
+    image: quran.com-api:production-v1-latest
+    environment:
+      - SECRET_KEY_BASE=abcdefa
+
