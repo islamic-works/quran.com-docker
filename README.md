@@ -5,6 +5,8 @@ Each folder have Docker files and other specific parameter files for build Image
 
 ## Frontend
 
+Context for Quran.com Frontend project development, testing, and other activities.
+
 ## API
 
 
