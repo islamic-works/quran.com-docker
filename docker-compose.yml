@@ -1,0 +1,12 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: frontend
+      args:
+        - env=development
+    image: quran.com-frontend:dev-v1-latest
+    volumes:
+      - frontend/frontend-repository:/workspace
+    ports:
+      - "8000:8000"

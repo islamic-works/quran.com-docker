@@ -1,0 +1,15 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: frontend
+      args:
+        - env=test
+    image: quran.com-frontend:test-v1-latest
+    volumes:
+      - frontend/frontend-repository:/workspace
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY_BASE=xyzabc
+
