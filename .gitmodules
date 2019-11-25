@@ -1,3 +1,7 @@
 [submodule "frontend/git-repository"]
 	path = frontend/git-repository
 	url = git@github.com:islamic-works/quran.com-frontend.git
+
+[submodule "api/git-repository"]
+	path = api/git-repository
+	url = git@github.com:islamic-works/quran.com-api.git

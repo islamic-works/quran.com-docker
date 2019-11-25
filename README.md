@@ -42,6 +42,12 @@ $ docker build -t quran.com-frontend:docker-new-aproach-v1 frontend/
 
 Context for Quran.com development, testing, and other API project activities.
 
+For build a image using this context you can use a command like:
+
+```
+$ docker build -t quran.com-api:docker-new-approach-v3 api/
+```
+
 ## Branchs and Merge
 
 For each context there must be a working branch, and it must be unified with the branch that acts with the contexts composed by the docker-composer files.
