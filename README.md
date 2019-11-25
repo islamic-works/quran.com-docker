@@ -3,11 +3,42 @@ Quran.com Project - Building Docker Images
 
 Each folder have Docker files and other specific parameter files for build Images and Containers for use with Quran.com project development.
 
-## Frontend
+## First Steps
+
+### Clonning 
+
+For start to work with this images, you need clone this project on you workspace.
+
+Using Docker Build with the URL in GIT format is not indicated, as you need to enter other sensitive and sensitive parameters before building, folders and files like those used by SSH (RSync) are required for deploying in addition to updating and revising the target project sub-module.
+
+The basic command to clone the repository is:
+
+```
+$ git clone --recursive git@github.com:islamic-works/guran.com-docker-images.git
+```
+
+After that make the change to the context branch you want to work with, then update the git submodule to its context, you can use the command as follows if you will work with the "frontend-v1" context.
+
+```
+$ git checkout frontend-v1
+$ git submodule update --init --recursive
+```
+
+If you want to work on the submodule in any specific branch, you can enter the context folder, the directory where the submodule was cloned and finally checkout to the specific source project branch, then return the root of the docker image project repository and run the docker build command as shown in the next sections.
+
+## Context
+
+### Frontend
 
 Context for Quran.com Frontend project development, testing, and other activities.
 
-## API
+For build a image using this context you can use a command like:
+
+```
+$ docker build -t quran.com-frontend:docker-new-aproach-v1 frontend/
+```
+
+### API
 
 Not exist in this branch
 
