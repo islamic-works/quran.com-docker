@@ -9,6 +9,7 @@ Context for Quran.com Frontend project development, testing, and other activitie
 
 ## API
 
+Context for Quran.com development, testing, and other API project activities.
 
 ## Branchs and Merge
 
