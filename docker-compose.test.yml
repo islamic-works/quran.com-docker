@@ -10,6 +10,13 @@ services:
       - frontend/frontend-repository:/workspace
     ports:
       - "8000:8000"
+  api:
+    build:
+      context: api
+      args:
+        - env=test
+        - bundle_opts=--without development
+    image: quran.com-api:test-v1-latest
     environment:
       - SECRET_KEY_BASE=xyzabc
 

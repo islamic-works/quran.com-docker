@@ -10,3 +10,47 @@ services:
       - frontend/frontend-repository:/workspace
     ports:
       - "8000:8000"
+  api:
+    build:
+      context: api
+      args:
+        - env=development
+        - bundle_opts=--without test
+    image: quran.com-api:dev-v1-latest
+    volumes:
+      - api/api-repository:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://quran_dev:quran_password@postgres:5432/quran_db
+      - ELASTICSEARCH_HOST=elasticsearch
+      - SENTRY_DSN=
+      - SECRET_KEY_BASE=abcdefa
+    depends_on:
+      - postgres
+      - elasticsearch
+  postgres:
+    image: quran/quran.com-database:d7480fa
+    environment:
+      - POSTGRES_DB=quran_db
+      - POSTGRES_USER=quran_dev
+      - POSTGRES_PASSWORD=quran_password # to create db
+      - PGPASSWORD=quran_password # to pg_restore dump
+  elasticsearch:
+    image: quran/quran.com-elasticsearch:d37a1ed
+    environment:
+      - bootstrap.memory_lock=false # reservations below takes care of that
+      - "ES_JAVA_OPTS=
+          -Xms700m
+          -Xmx700m
+          -Xss256k
+          -server
+          -Djava.net.preferIPv4Stack=true
+          -XX:+UseParNewGC
+          -XX:+UseConcMarkSweepGC
+          -XX:CMSInitiatingOccupancyFraction=75
+          -XX:+UseCMSInitiatingOccupancyOnly
+          -XX:+HeapDumpOnOutOfMemoryError
+        "
+      - ES_HOME=/usr/local/elasticsearch
+
