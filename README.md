@@ -35,12 +35,30 @@ Context for Quran.com Frontend project development, testing, and other activitie
 For build a image using this context you can use a command like:
 
 ```
-$ docker build -t quran.com-frontend:docker-new-aproach-v1 frontend/
+$ docker build -t quran.com-frontend:docker-new-approach-v2 frontend/
 ```
+
+### Using the image
+
+The following command allows you to execute the image created above, and adjust its content and behavior, at this point it becomes a running container, when exiting with the exit command, it remains running and is not deleted. It can later be converted into a final image for reuse or even sending to other colleagues.
+
+Considering that you are inside the directory that is the clone of this repository, just use the command below, see that the path used as source is referenced in the command with the help of the pwd variable, in case of windows you should take precautions, the directory then. The question is where is the cloned repository, in my case `~/workspace/quran.com/quran.com-docker` as a submodule of this repository.
+
+```
+$ docker run -it --name quran.com --mount "type=bind,source=$(pwd)/frontend/git-repository,target=/tmp/workspace"  quran.com-frontend:docker-new-approach-v2 bash
+```
+
+Note that when executing the above command, the supervisor will not be executed, it is the one that keeps the node running answering the requests on port 8000.
 
 ### API
 
-Not exist in this branch
+Context for Quran.com development, testing, and other API project activities.
+
+For build a image using this context you can use a command like:
+
+```
+$ docker build -t quran.com-api:docker-new-approach-v3 api/
+```
 
 ## Branchs and Merge
 

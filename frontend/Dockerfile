@@ -1,4 +1,4 @@
-FROM node:8.9
+FROM node:8.9 as quran_node
 
 RUN apt-get -y update -qq
 RUN apt-get -y install apt-utils 
@@ -16,17 +16,17 @@ ADD git-repository/package-lock.json git-repository/package.json ./
 RUN npm install --silent --no-progress
 RUN npm install -g pm2
 
-RUN mkdir /quran
-RUN cp -a package-lock.json package.json /tmp/node_modules /quran
+FROM quran_node
 
-WORKDIR /quran
+WORKDIR /tmp
 ADD git-repository/tsconfig.json tsconfig.json
+ADD git-repository/.eslintrc.js .eslintrc.js
+ADD git-repository/.babelrc .babelrc
 ADD git-repository/src ./src
 ADD git-repository/config ./config
 ADD git-repository/internal ./internal
 ADD git-repository/static ./static
 ADD git-repository/shared ./shared
-RUN ls -lha
 
 #### build client and server
 ENV SENTRY_KEY_CLIENT https://app.getsentry.com
@@ -47,25 +47,24 @@ ENV FONTS_URL=//quran-1f14.kxcdn.com
 ENV AUDIO_CDN=//audio.qurancdn.com
 
 ENV NODE_ENV production
-ENV NODE_PATH "./dist"
 
 RUN npm run build
+
+RUN cp -a package-lock.json package.json /tmp/node_modules /tmp/build /quran
+
+## The End
+WORKDIR /tmp
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 
 # ssh keys
 WORKDIR /root
 #ADD git-repository/.ssh /root/
 ADD .ssh /root/
 
-# upload js and css
-WORKDIR /quran/static/dist
-RUN rsync --update --progress -raz . ahmedre@rsync.keycdn.com:zones/assets/
-
-# go back to /quran
+# go to /quran
 WORKDIR /quran
 
 EXPOSE 8000
-CMD ["supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]
 
-## The End
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/*
+CMD ["supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]
